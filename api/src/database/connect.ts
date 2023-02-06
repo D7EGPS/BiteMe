@@ -1,3 +1,8 @@
-import mongoose from 'mongoose';
+import { connect } from 'mongoose';
+import config from '../config';
 
-mongoose.connect('mongodb://localhost/bite_me');
+const dbConnect = async () => {
+  await connect(config.HOST_SERVER);
+};
+
+export default dbConnect;
