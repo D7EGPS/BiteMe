@@ -4,7 +4,8 @@
   "description": "BiteMe es una aplicación de recetas que te permite descubrir nuevas y deliciosas comidas y bebidas. Con BiteMe, puedes guardar tus recetas favoritas, descubrir nuevas y compartirlas con amigos.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
