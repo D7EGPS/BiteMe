@@ -15,7 +15,6 @@ type Context = inferAsyncReturnType<typeof createContext>;
 
 export const appRouter = t.router({
   getUser: t.procedure.query((req) => {
-    // string
     return { name: 'Bilbo' };
   }),
 });
