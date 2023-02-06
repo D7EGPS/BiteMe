@@ -14,16 +14,13 @@ const createContext = ({
 type Context = inferAsyncReturnType<typeof createContext>;
 
 export const appRouter = t.router({
-  getUser: t.procedure.input(z.string()).query((req) => {
-    req.input; // string
-    return { id: req.input, name: 'Bilbo' };
+  getUser: t.procedure.query((req) => {
+    // string
+    return { name: 'Bilbo' };
   }),
 });
 
 const app = express();
-app.use(
-  'trpc',
-  trpcExpress.createExpressMiddleware({ router: appRouter, createContext })
-);
+app.use('/trpc', trpcExpress.createExpressMiddleware({ router: appRouter }));
 export type AppRouter = typeof appRouter;
 app.listen(3000);
