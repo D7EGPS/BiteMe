@@ -1,28 +1,21 @@
-import express from 'express';
-import { inferAsyncReturnType, initTRPC } from '@trpc/server';
 import * as trpcExpress from '@trpc/server/adapters/express';
-import { z } from 'zod';
-
-export const t = initTRPC.create();
-export const middleware = t.middleware;
-export const publicProcedure = t.procedure;
-
-const createContext = ({
-  req,
-  res,
-}: trpcExpress.CreateExpressContextOptions) => ({}); // no context
-type Context = inferAsyncReturnType<typeof createContext>;
-
-export const appRouter = t.router({
-  getUser: t.procedure.query((req) => {
-    return { name: 'Bilbo' };
-  }),
-});
+import express from 'express';
+import db from './database/connect';
+import config from './config';
+import { appRouter, createContext } from './routes';
+// export const middleware = t.middleware;
+// export const publicProcedure = t.procedure;
 
 const app = express();
 app.use(
   '/trpc',
   trpcExpress.createExpressMiddleware({ router: appRouter, createContext })
 );
+
+db()
+  .then(() => console.log('db connected'))
+  .catch((err) => console.log('connection error'));
+
+app.listen(config.PORT);
+
 export type AppRouter = typeof appRouter;
-app.listen(3000);
