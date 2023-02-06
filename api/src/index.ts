@@ -21,6 +21,9 @@ export const appRouter = t.router({
 });
 
 const app = express();
-app.use('/trpc', trpcExpress.createExpressMiddleware({ router: appRouter }));
+app.use(
+  '/trpc',
+  trpcExpress.createExpressMiddleware({ router: appRouter, createContext })
+);
 export type AppRouter = typeof appRouter;
 app.listen(3000);
