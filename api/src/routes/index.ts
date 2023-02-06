@@ -1,11 +1,17 @@
-// import { router } from '..';
+import { inferAsyncReturnType, initTRPC } from '@trpc/server';
+import * as trpcExpress from '@trpc/server/adapters/express';
+import { z } from 'zod';
+import { UserModel } from '../models';
+import { userRouter } from './user/user.route';
 
-// const appRouter = router({
-//   //   getUser: publicProcedure.input(z.string()).query((req) => {
-//   //     req.input;
-//   //     return { id: req.input, name: 'Bilbo' };
-//   //   }),
-//   user: userRouter,
-// });
+export const t = initTRPC.create();
 
-// export type AppRouter = typeof appRouter;
+export const createContext = ({
+  req,
+  res,
+}: trpcExpress.CreateExpressContextOptions) => ({}); // no context
+type Context = inferAsyncReturnType<typeof createContext>;
+
+export const appRouter = t.router({
+  user: userRouter,
+});
